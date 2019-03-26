@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Test cases">
+<suite name="Chrome browser">
 
-    <!--<listeners>-->
-    <!--<listener class-name="util.listener.RetryListener"/>-->
-    <!--</listeners>-->
+    <listeners>
+        <listener class-name="util.listener.RetryListener"/>
+    </listeners>
 
-    <test name="Test from Chrome">
+    <test name="Test cases">
         <parameter name="browser" value="Chrome"/>
         <classes>
             <class name="AuthenticationTest"/>
@@ -17,5 +17,4 @@
             <class name="SearchTest"/>
         </classes>
     </test>
-
 </suite>

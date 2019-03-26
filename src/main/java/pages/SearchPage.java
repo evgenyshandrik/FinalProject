@@ -2,6 +2,7 @@ package pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -33,6 +34,7 @@ public class SearchPage extends BasePage {
 
     @Step(value = "Добавление товара в корзину")
     public void clickAddToCart() {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", getResultSearchElementImage());
         new Actions(driver).moveToElement(getResultSearchElementImage()).build().perform();
         new Actions(driver).moveToElement(getAddToCartButton()).click().build().perform();
     }

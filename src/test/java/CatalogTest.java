@@ -12,11 +12,10 @@ public class CatalogTest {
     private WebDriver driver;
     private BasePage basePage;
     private CategoryPage categoryPage;
-    private static final String catalogName = "T-SHIRTS ";
 
     @Parameters("browser")
     @BeforeMethod()
-    public void initDriver(@Optional String browserName) {
+    public void initDriver(@Optional("Chrome") String browserName) {
         driver = DriverFactory.createDriver(browserName);
 
         basePage = new BasePage(driver);
@@ -28,17 +27,10 @@ public class CatalogTest {
         driver.quit();
     }
 
-    @Test(description = "E-6 Catalog T-SHIRT Test (1)")
-    public void checkCatalogTShirtHardTest() {
-        basePage.clickMenuTShirtHard();
+    @Test(description = "E-6 Catalog T-SHIRT Test")
+    public void checkCatalogTShirt() {
+        basePage.clickMenuTShirt();
 
-        Assert.assertTrue(categoryPage.getHeadingProduct().getText().contentEquals(catalogName), "Header of catalog should be visible");
-    }
-
-    @Test(description = "E-6 Catalog T-SHIRT Test (2)")
-    public void checkCatalogTShirtSimpleTest() {
-        basePage.clickMenuTShirtSimple();
-
-        Assert.assertTrue(categoryPage.getHeadingProduct().getText().contentEquals(catalogName), "Header of catalog should be visible");
+        Assert.assertTrue(categoryPage.getHeadingProduct().getText().contentEquals("T-SHIRTS "), "Header of catalog should be visible");
     }
 }

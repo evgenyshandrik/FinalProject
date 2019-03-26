@@ -19,7 +19,7 @@ public class ContactTest {
 
     @Parameters("browser")
     @BeforeMethod()
-    public void initDriver(@Optional String browserName) {
+    public void initDriver(@Optional("Chrome") String browserName) {
         driver = DriverFactory.createDriver(browserName);
 
         file = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\test.txt");

@@ -68,7 +68,7 @@
                 <version>2.20</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <!--<suiteXmlFile>src/main/resources/setting-chrome.xml</suiteXmlFile>-->
+                        <suiteXmlFile>src/main/resources/setting-chrome.xml</suiteXmlFile>
                         <suiteXmlFile>src/main/resources/setting-firefox.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <argLine>

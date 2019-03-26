@@ -15,11 +15,10 @@ public class OrderTest {
     private SearchPage searchPage;
     private ShoppingCartPage shoppingCartPage;
     private OrderPage orderPage;
-    private String searchBrand = "Blouse";
 
     @Parameters("browser")
     @BeforeMethod()
-    public void initDriver(@Optional String browserName) {
+    public void initDriver(@Optional("Chrome") String browserName) {
         driver = DriverFactory.createDriver(browserName);
 
         basePage = new BasePage(driver);
@@ -35,18 +34,18 @@ public class OrderTest {
         driver.quit();
     }
 
-    @Test(description = "E-7 Proceed To Checkout")
-    public void doOrder() {
+    @Test(description = "E-7 Proceed To Checkout", dataProvider = "itemsData")
+    public void doOrder(String itemOrder) {
         basePage.clickSignIn();
 
         authenticationPage.signIn("1@test.test", "admin_admin");
 
-        basePage.search("Blouse");
+        basePage.search(itemOrder);
 
         searchPage.clickAddToCart();
         searchPage.clickProceedToCheckout();
 
-        shoppingCartPage.findItemFromShoppingCart("Blouse");
+        shoppingCartPage.findItemFromShoppingCart(itemOrder);
 
         String link = shoppingCartPage.doOrder();
 
@@ -55,6 +54,15 @@ public class OrderTest {
         myAccountPage.clickOrderHistory();
 
         Assert.assertTrue(orderPage.findReferenceOrder(link), "Order reference should be in order history");
+    }
+
+    @DataProvider
+    public Object[][] itemsData() {
+        return new Object[][]{
+                {"Blouse"},
+                {"Printed Summer Dress"},
+                {"Faded Short Sleeve T-shirts"}
+        };
     }
 
 }

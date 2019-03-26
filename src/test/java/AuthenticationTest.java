@@ -14,7 +14,6 @@ public class AuthenticationTest {
 
     private WebDriver driver;
     private BasePage basePage;
-    private MyAccountPage myAccountPage;
     private AuthenticationPage authenticationPage;
 
     @Parameters("browser")
@@ -24,7 +23,7 @@ public class AuthenticationTest {
 
         basePage = new BasePage(driver);
         authenticationPage = new AuthenticationPage(driver);
-        myAccountPage = new MyAccountPage(driver);
+
     }
 
     @AfterMethod
@@ -42,7 +41,7 @@ public class AuthenticationTest {
 
         softAssert.assertTrue(authenticationPage.getErrorLabel().isDisplayed(), "Error message should be visible");
         softAssert.assertEquals(authenticationPage.getErrorLabel().getText(), AuthenticationAssert.textErrorRegistration,
-                "Error message should be visible and equals to " + AuthenticationAssert.textErrorRegistration);
+                "Error message should be equals to " + AuthenticationAssert.textErrorRegistration);
 
         softAssert.assertAll();
     }
@@ -53,16 +52,18 @@ public class AuthenticationTest {
 
         authenticationPage.signIn("1@test.test", "admin_admin");
 
+        MyAccountPage myAccountPage = new MyAccountPage(driver);
+
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(myAccountPage.getMyAccountMenu().isDisplayed(),
                 "Header element should be visible");
         softAssert.assertEquals(myAccountPage.getMyAccountLabel().getText(), MyAccountAssert.textMyAccount,
-                "Header should be visible and equal to " + MyAccountAssert.textMyAccount);
+                "Header should be equal to " + MyAccountAssert.textMyAccount);
 
         softAssert.assertAll();
     }
 
-    @Test(description = "MY-3 Unsuccessful Sign In")
+    @Test(description = "MY-3 Sign In with incorrect password")
     public void unsuccessfulSignInTest() {
         basePage.clickSignIn();
 
@@ -82,17 +83,16 @@ public class AuthenticationTest {
         basePage.clickSignIn();
 
         authenticationPage.signIn("1@test.test", "admin_admin");
+        int countPanelBefore = authenticationPage.getPanelNavigator().size();
+
         authenticationPage.clickSignOut();
 
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(driver.getTitle(), AuthenticationAssert.textPageTitle,
-                "PageTitle should be equals to " + AuthenticationAssert.textPageTitle);
-        softAssert.assertTrue(authenticationPage.getHeadingLabel().isDisplayed(),
-                "Heading should be visible");
-        softAssert.assertEquals(authenticationPage.getHeadingLabel().getText(),
-                AuthenticationAssert.textHeader, "Heading should be equals to " + AuthenticationAssert.textHeader);
+        softAssert.assertNotEquals(authenticationPage.getPanelNavigator().size(), countPanelBefore,
+                "Count blocks of panel navigator after log out should be different with count block before log out");
+
+        softAssert.assertEquals(authenticationPage.getBlockOfNickname().getText(), "Sign in", "Block of panel should be equals Sign in");
 
         softAssert.assertAll();
-
     }
 }

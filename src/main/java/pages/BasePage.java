@@ -2,9 +2,12 @@ package pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+
+import java.util.List;
 
 public class BasePage {
 
@@ -19,10 +22,17 @@ public class BasePage {
     private By searchInput = By.id("search_query_top");
     private By searchButton = By.name("submit_search");
     private By signOutButton = By.xpath("//ul[@class='bullet']/li[5]/a");
-
-    private By womenMainMenu = By.xpath("//a[@title='Women']");
-    private By tShirtsItemMenu = By.xpath("//li[@class='sfHover']//a[@title='T-shirts']");
+    private By panelNavigator = By.xpath("//div[@class='nav']//div");
+    private By blockOfNickname = By.xpath("//div[@class='nav']//div[@class='row']//div[1]");
     private By tShirtsMainMenu = By.xpath("//ul[@class='sf-menu clearfix menu-content sf-js-enabled sf-arrows']/li[3]");
+
+    public WebElement getBlockOfNickname() {
+        return driver.findElement(blockOfNickname);
+    }
+
+    public List<WebElement> getPanelNavigator() {
+        return driver.findElements(panelNavigator);
+    }
 
     public void clickContactUs() {
         driver.findElement(contactUsButton).click();
@@ -33,19 +43,9 @@ public class BasePage {
     }
 
     public void clickSignOut() {
-        new Actions(driver).moveToElement(getSignOut()).click().build().perform();
-    }
-
-    private WebElement getSignOut() {
-        return driver.findElement(signOutButton);
-    }
-
-    private WebElement getWomenMenu() {
-        return driver.findElement(womenMainMenu);
-    }
-
-    private WebElement getTShirtsItemMenu() {
-        return driver.findElement(tShirtsItemMenu);
+        WebElement myElement = driver.findElement(signOutButton);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", myElement);
+        myElement.click();
     }
 
     private void enterTextForSearch(String searchValue) {
@@ -63,16 +63,8 @@ public class BasePage {
     }
 
     @Step(value = "Нажатие на меню T-Shirt")
-    public void clickMenuTShirtSimple() {
+    public void clickMenuTShirt() {
         driver.findElement(tShirtsMainMenu).click();
     }
-
-    @Step(value = "Нажатие на подменю T-Shirt")
-    public void clickMenuTShirtHard() {
-        new Actions(driver).moveToElement(getWomenMenu()).build().perform();
-        new Actions(driver).moveToElement(getTShirtsItemMenu()).click().build().perform();
-    }
-
-
 }
 

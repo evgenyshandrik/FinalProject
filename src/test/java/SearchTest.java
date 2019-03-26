@@ -21,7 +21,7 @@ public class SearchTest {
 
     @Parameters("browser")
     @BeforeMethod()
-    public void initDriver(@Optional String browserName) {
+    public void initDriver(@Optional("Chrome") String browserName) {
         driver = DriverFactory.createDriver(browserName);
 
         basePage = new BasePage(driver);
@@ -38,26 +38,25 @@ public class SearchTest {
         String searchElement = "Blouse";
         basePage.search(searchElement);
 
-        Assert.assertTrue(searchPage.getResultSearchElementName().getText().contains(searchElement), "Name of the resulting element should be equal to " + searchElement);
+        Assert.assertTrue(searchPage.getResultSearchElementName().getText().contains(searchElement),
+                "Name of the resulting element should be equal to " + searchElement);
     }
 
-    @Test(description = "E-5 Verify the ability to add and delete items from cart")
-    public void checkShoppingCart() {
-        String searchElement = "Blouse";
-        basePage.search(searchElement);
+    @Test(description = "E-5 Verify the ability to add and delete items from cart", dataProvider = "itemsData")
+    public void checkShoppingCart(String searchItem) {
+        basePage.search(searchItem);
 
         searchPage.clickAddToCart();
         searchPage.clickProceedToCheckout();
 
         ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
 
-        String searchBrand = "Blouse";
-        WebElement element = shoppingCartPage.findItemFromShoppingCart(searchBrand);
+        WebElement element = shoppingCartPage.findItemFromShoppingCart(searchItem);
 
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertNotNull(element, "Element should be display at shopping cart");
 
-        shoppingCartPage.deleteItemFromCart(searchBrand);
+        shoppingCartPage.deleteItemFromCart(searchItem);
 
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(shoppingCartPage.getByMessageEmpty()));
@@ -65,5 +64,14 @@ public class SearchTest {
         softAssert.assertEquals(shoppingCartPage.getElementMessageEmpty().getText(), ShoppingCartAssert.textMessageWarning, "Element should be delete from shopping cart");
 
         softAssert.assertAll();
+    }
+
+    @DataProvider
+    public Object[][] itemsData() {
+        return new Object[][]{
+                {"Blouse"},
+                {"Printed Summer Dress"},
+                {"Faded Short Sleeve T-shirts"}
+        };
     }
 }

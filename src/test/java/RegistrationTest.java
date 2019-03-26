@@ -21,7 +21,7 @@ public class RegistrationTest {
 
     @Parameters("browser")
     @BeforeMethod()
-    public void initDriver(@Optional String browserName) {
+    public void initDriver(@Optional("Chrome") String browserName) {
         driver = DriverFactory.createDriver(browserName);
 
         basePage = new BasePage(driver);

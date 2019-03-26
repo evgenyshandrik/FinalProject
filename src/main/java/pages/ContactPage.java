@@ -18,7 +18,6 @@ public class ContactPage extends BasePage {
     private By attachFileInput = By.name("fileUpload");
     private By messageInput = By.id("message");
     private By sendButton = By.id("submitMessage");
-
     private By labelSuccess = By.xpath("//p[@class='alert alert-success']");
     private By labelErrorMessage = By.xpath("//div[@class='alert alert-danger']//ol//li");
 
