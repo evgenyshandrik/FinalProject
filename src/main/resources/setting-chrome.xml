@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test cases">
+
+    <!--<listeners>-->
+    <!--<listener class-name="util.listener.RetryListener"/>-->
+    <!--</listeners>-->
+
+    <test name="Test from Chrome">
+        <parameter name="browser" value="Chrome"/>
+        <classes>
+            <class name="AuthenticationTest"/>
+            <class name="CatalogTest"/>
+            <class name="ContactTest"/>
+            <class name="OrderTest"/>
+            <class name="RegistrationTest"/>
+            <class name="SearchTest"/>
+        </classes>
+    </test>
+
+</suite>
