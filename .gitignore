@@ -1,0 +1,14 @@
+*.iml
+/*.iml
+*/*.iml
+*/.idea/
+.idea/
+
+*/out/
+out/
+*/target/
+target/
+*/.idea_modules/
+
+*/.allure-tesults/
+.allure-tesults/
