@@ -3,8 +3,8 @@ import io.qameta.allure.Owner;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import pages.BasePage;
 import pages.ContactPage;
+import pages.MainPage;
 import util.DriverFactory;
 
 import java.io.File;
@@ -13,7 +13,7 @@ import java.io.File;
 public class ContactTest {
 
     private WebDriver driver;
-    private BasePage basePage;
+    private MainPage mainPage;
     private ContactPage contactPage;
     private File file;
 
@@ -24,7 +24,7 @@ public class ContactTest {
 
         file = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\test.txt");
 
-        basePage = new BasePage(driver);
+        mainPage = new MainPage(driver);
         contactPage = new ContactPage(driver);
     }
 
@@ -35,8 +35,7 @@ public class ContactTest {
 
     @Test(description = "E-1 Verify that contact us form sends successfully")
     public void sendSuccessfullyFeedbackTest() {
-        basePage.clickContactUs();
-
+        mainPage.clickContactUs();
         contactPage.sendFeedback(1, "1@test.test", "order", file.getPath(), "Message");
 
         Assert.assertEquals(contactPage.getLabelSuccess().getText(), ContactAssert.textMessageSuccess, "Successful message should be visible");
@@ -44,8 +43,7 @@ public class ContactTest {
 
     @Test(description = "E-2 Verify that error message appears if Message area is empty")
     public void emptyMessageFeedbackTest() {
-        basePage.clickContactUs();
-
+        mainPage.clickContactUs();
         contactPage.sendFeedback(1, "1@test.test", "order", file.getPath(), "");
 
         Assert.assertEquals(contactPage.getLabelErrorMessage().getText(), ContactAssert.textErrorMessage, "Error message should be visible");

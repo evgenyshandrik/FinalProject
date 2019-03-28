@@ -15,7 +15,7 @@ public class SearchPage extends BasePage {
         super(driver);
     }
 
-    private By resultSearchElementName = By.xpath("//div[@class='product-container']/div[@class='right-block']/h5");
+    private By resultSearchElementName = By.xpath("//div[@class='right-block']/h5");
     private By addToCartButton = By.xpath("//div[@class='right-block']/div[@class='button-container']/a[@class='button ajax_add_to_cart_button btn btn-default']");
     private By proceedToCheckoutButton = By.xpath("//div[@class='button-container']//a[@class='btn btn-default button button-medium']");
     private By resultSearchElementImage = By.xpath("//div[@class='product-image-container']//a[@class='product_img_link']");

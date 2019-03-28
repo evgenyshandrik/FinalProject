@@ -2,15 +2,15 @@ import io.qameta.allure.Owner;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import pages.BasePage;
 import pages.CategoryPage;
+import pages.MainPage;
 import util.DriverFactory;
 
 @Owner(value = "Evgen Shandrik")
 public class CatalogTest {
 
     private WebDriver driver;
-    private BasePage basePage;
+    private MainPage mainPage;
     private CategoryPage categoryPage;
 
     @Parameters("browser")
@@ -18,7 +18,7 @@ public class CatalogTest {
     public void initDriver(@Optional("Chrome") String browserName) {
         driver = DriverFactory.createDriver(browserName);
 
-        basePage = new BasePage(driver);
+        mainPage = new MainPage(driver);
         categoryPage = new CategoryPage(driver);
     }
 
@@ -29,7 +29,7 @@ public class CatalogTest {
 
     @Test(description = "E-6 Catalog T-SHIRT Test")
     public void checkCatalogTShirt() {
-        basePage.clickMenuTShirt();
+        mainPage.clickMenuTShirt();
 
         Assert.assertTrue(categoryPage.getHeadingProduct().getText().contentEquals("T-SHIRTS "), "Header of catalog should be visible");
     }

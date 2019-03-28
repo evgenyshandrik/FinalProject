@@ -16,9 +16,9 @@ public class AuthenticationPage extends BasePage {
     private By passwordInput = By.id("passwd");
     private By signInButton = By.id("SubmitLogin");
     private By emailAddressForCreateInput = By.id("email_create");
-    private By createAccountButton = By.xpath("//form[@id='create-account_form']//span[1]");
+    private By createAccountButton = By.id("SubmitCreate");
     private By errorLabel = By.xpath("//div[@id='create_account_error']/ol/li");
-    private By errorAuthLabel = By.xpath("//div[@id='center_column']/div[@class='alert alert-danger']/ol/li");
+    private By errorAuthLabel = By.xpath("//div[@class='alert alert-danger']/ol/li");
 
     public WebElement getErrorLabel() {
         return driver.findElement(errorLabel);

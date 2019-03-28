@@ -9,7 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 
-public class BasePage {
+public abstract class BasePage {
 
     WebDriver driver;
 
@@ -17,7 +17,7 @@ public class BasePage {
         this.driver = driver;
     }
 
-    private By contactUsButton = By.xpath("//div[@id='contact-link']/a");
+    private By contactUsButton = By.id("contact-link");
     private By signInButton = By.className("header_user_info");
     private By searchInput = By.id("search_query_top");
     private By searchButton = By.name("submit_search");

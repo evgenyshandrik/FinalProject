@@ -3,10 +3,7 @@ import io.qameta.allure.Owner;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
-import pages.AuthenticationPage;
-import pages.BasePage;
-import pages.MyAccountPage;
-import pages.RegistrationPage;
+import pages.*;
 import util.DriverFactory;
 import util.Randomizer;
 
@@ -14,7 +11,7 @@ import util.Randomizer;
 public class RegistrationTest {
 
     private WebDriver driver;
-    private BasePage basePage;
+    private MainPage mainPage;
     private MyAccountPage myAccountPage;
     private AuthenticationPage authenticationPage;
     private RegistrationPage registrationPage;
@@ -24,7 +21,7 @@ public class RegistrationTest {
     public void initDriver(@Optional("Chrome") String browserName) {
         driver = DriverFactory.createDriver(browserName);
 
-        basePage = new BasePage(driver);
+        mainPage = new MainPage(driver);
         authenticationPage = new AuthenticationPage(driver);
         registrationPage = new RegistrationPage(driver);
         myAccountPage = new MyAccountPage(driver);
@@ -37,8 +34,7 @@ public class RegistrationTest {
 
     @Test(description = "E-3 Verify the ability to register")
     public void registrationSuccessfulTest() {
-        basePage.clickSignIn();
-
+        mainPage.clickSignIn();
         authenticationPage.firstStepForRegistration(Randomizer.randomEmail(2, 10));
 
         registrationPage.registration(Randomizer.randomFirstName(), Randomizer.randomLastName(),

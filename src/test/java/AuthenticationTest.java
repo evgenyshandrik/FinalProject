@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import pages.AuthenticationPage;
-import pages.BasePage;
+import pages.MainPage;
 import pages.MyAccountPage;
 import util.DriverFactory;
 
@@ -13,7 +13,7 @@ import util.DriverFactory;
 public class AuthenticationTest {
 
     private WebDriver driver;
-    private BasePage basePage;
+    private MainPage mainPage;
     private AuthenticationPage authenticationPage;
 
     @Parameters("browser")
@@ -21,9 +21,8 @@ public class AuthenticationTest {
     public void initDriver(@Optional("Firefox") String browserName) {
         driver = DriverFactory.createDriver(browserName);
 
-        basePage = new BasePage(driver);
+        mainPage = new MainPage(driver);
         authenticationPage = new AuthenticationPage(driver);
-
     }
 
     @AfterMethod
@@ -33,8 +32,7 @@ public class AuthenticationTest {
 
     @Test(description = "MY-1 Verify the ability to register used email which was register")
     public void registrationUsedEmailTest() {
-        basePage.clickSignIn();
-
+        mainPage.clickSignIn();
         authenticationPage.firstStepForRegistration("1@test.test");
 
         SoftAssert softAssert = new SoftAssert();
@@ -48,8 +46,7 @@ public class AuthenticationTest {
 
     @Test(description = "MY-2 Successful Sign In")
     public void signInTest() {
-        basePage.clickSignIn();
-
+        mainPage.clickSignIn();
         authenticationPage.signIn("1@test.test", "admin_admin");
 
         MyAccountPage myAccountPage = new MyAccountPage(driver);
@@ -65,8 +62,7 @@ public class AuthenticationTest {
 
     @Test(description = "MY-3 Sign In with incorrect password")
     public void unsuccessfulSignInTest() {
-        basePage.clickSignIn();
-
+        mainPage.clickSignIn();
         authenticationPage.signIn("1@test.test", "admin_admin1");
 
         SoftAssert softAssert = new SoftAssert();
@@ -80,9 +76,9 @@ public class AuthenticationTest {
 
     @Test(description = "MY-4 Sign out")
     public void signOutTest() {
-        basePage.clickSignIn();
-
+        mainPage.clickSignIn();
         authenticationPage.signIn("1@test.test", "admin_admin");
+
         int countPanelBefore = authenticationPage.getPanelNavigator().size();
 
         authenticationPage.clickSignOut();

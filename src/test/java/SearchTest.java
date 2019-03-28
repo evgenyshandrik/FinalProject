@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
-import pages.BasePage;
+import pages.MainPage;
 import pages.SearchPage;
 import pages.ShoppingCartPage;
 import util.DriverFactory;
@@ -16,7 +16,7 @@ import util.DriverFactory;
 public class SearchTest {
 
     private WebDriver driver;
-    private BasePage basePage;
+    private MainPage mainPage;
     private SearchPage searchPage;
 
     @Parameters("browser")
@@ -24,7 +24,7 @@ public class SearchTest {
     public void initDriver(@Optional("Chrome") String browserName) {
         driver = DriverFactory.createDriver(browserName);
 
-        basePage = new BasePage(driver);
+        mainPage = new MainPage(driver);
         searchPage = new SearchPage(driver);
     }
 
@@ -36,7 +36,7 @@ public class SearchTest {
     @Test(description = "E-4 Verify the ability to search items")
     public void searchTest() {
         String searchElement = "Blouse";
-        basePage.search(searchElement);
+        mainPage.search(searchElement);
 
         Assert.assertTrue(searchPage.getResultSearchElementName().getText().contains(searchElement),
                 "Name of the resulting element should be equal to " + searchElement);
@@ -44,7 +44,7 @@ public class SearchTest {
 
     @Test(description = "E-5 Verify the ability to add and delete items from cart", dataProvider = "itemsData")
     public void checkShoppingCart(String searchItem) {
-        basePage.search(searchItem);
+        mainPage.search(searchItem);
 
         searchPage.clickAddToCart();
         searchPage.clickProceedToCheckout();

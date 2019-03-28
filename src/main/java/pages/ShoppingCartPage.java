@@ -24,7 +24,7 @@ public class ShoppingCartPage extends BasePage {
     private By nextStepShippingButton = By.name("processCarrier");
     private By payByBankWireDiv = By.xpath("//div[@class='paiement_block']//div[1]//div[1]");
     private By donePaymentButton = By.xpath("//p[@id='cart_navigation']//button[@type='submit']");
-    private By infoAfterSuccessfulOrderDiv = By.xpath("//div[@class='box']");
+    private By infoAfterSuccessfulOrderDiv = By.className("box");
 
     public By getByMessageEmpty() {
         return messageEmpty;

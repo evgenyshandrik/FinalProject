@@ -9,7 +9,7 @@ import util.DriverFactory;
 public class OrderTest {
 
     private WebDriver driver;
-    private BasePage basePage;
+    private MainPage mainPage;
     private MyAccountPage myAccountPage;
     private AuthenticationPage authenticationPage;
     private SearchPage searchPage;
@@ -21,7 +21,7 @@ public class OrderTest {
     public void initDriver(@Optional("Chrome") String browserName) {
         driver = DriverFactory.createDriver(browserName);
 
-        basePage = new BasePage(driver);
+        mainPage = new MainPage(driver);
         myAccountPage = new MyAccountPage(driver);
         authenticationPage = new AuthenticationPage(driver);
         searchPage = new SearchPage(driver);
@@ -36,11 +36,9 @@ public class OrderTest {
 
     @Test(description = "E-7 Proceed To Checkout", dataProvider = "itemsData")
     public void doOrder(String itemOrder) {
-        basePage.clickSignIn();
-
+        mainPage.clickSignIn();
         authenticationPage.signIn("1@test.test", "admin_admin");
-
-        basePage.search(itemOrder);
+        authenticationPage.search(itemOrder);
 
         searchPage.clickAddToCart();
         searchPage.clickProceedToCheckout();
@@ -49,7 +47,7 @@ public class OrderTest {
 
         String link = shoppingCartPage.doOrder();
 
-        basePage.clickSignIn();
+        mainPage.clickSignIn();
 
         myAccountPage.clickOrderHistory();
 

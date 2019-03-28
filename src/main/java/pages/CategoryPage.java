@@ -10,7 +10,7 @@ public class CategoryPage extends BasePage {
         super(driver);
     }
 
-    private By headingProduct = By.xpath("//span[@class='cat-name']");
+    private By headingProduct = By.className("cat-name");
 
     public WebElement getHeadingProduct() {
         return driver.findElement(headingProduct);

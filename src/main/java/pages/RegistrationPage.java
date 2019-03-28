@@ -13,7 +13,6 @@ public class RegistrationPage extends BasePage {
 
     private By firstNameInput = By.name("customer_firstname");
     private By lastNameInput = By.name("customer_lastname");
-    private By emailInput = By.id("email");
     private By passwordInput = By.id("passwd");
     private By addressInput = By.id("address1");
     private By cityInput = By.id("city");
